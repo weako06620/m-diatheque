@@ -47,8 +47,24 @@
     <!-- ── Zone de contenu principale (vues injectées ici) ──────────── -->
     <main id="app-main" role="main" aria-live="polite"></main>
 
-    <!-- ── Navigation basse ─────────────────────────────────────────── -->
+    <!-- ── Navigation basse (mobile) / Sidebar (desktop) ──────────── -->
     <nav id="app-nav" aria-label="Navigation principale">
+
+      <!-- Visible uniquement sur desktop : logo dans la sidebar -->
+      <div class="sidebar-brand" aria-hidden="true">
+        <div class="header-logo">
+          <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="#2D6A4F"/>
+            <path d="M7 8h8a4 4 0 0 1 0 8H7V8z" fill="white" opacity="0.9"/>
+            <path d="M7 16h9a3 3 0 0 1 0 6H7v-6z" fill="white" opacity="0.6"/>
+          </svg>
+        </div>
+        <div>
+          <span class="sidebar-brand-title">Médiathèque</span>
+          <span class="sidebar-brand-sub">Cipières</span>
+        </div>
+      </div>
+
       <button class="nav-item active" data-view="catalogue" aria-label="Catalogue">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>

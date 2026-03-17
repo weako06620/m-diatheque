@@ -1115,3 +1115,136 @@
 .toast.hiding {
   animation: toastOut var(--duration-base) var(--ease-default) forwards;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE DESKTOP (≥ 1024px)
+   Surcharge des grilles et espacements pour les grands écrans.
+   Ces règles sont en fin de fichier pour avoir la priorité.
+═══════════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+  /* ── Catalogue : 3 colonnes ─────────────────────────────── */
+
+  .books-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    padding: var(--space-4) var(--space-8) var(--space-8);
+  }
+
+  /* ── Coups de cœur : cartes plus grandes ────────────────── */
+
+  .card-featured { width: 180px; }
+  .card-featured .book-cover { width: 180px; height: 248px; }
+
+  .featured-scroll {
+    padding: var(--space-2) var(--space-8) var(--space-4);
+    gap: var(--space-5);
+  }
+
+  .featured-label {
+    padding: var(--space-6) var(--space-8) var(--space-3);
+  }
+
+  /* ── Recherche et filtres ───────────────────────────────── */
+
+  .search-wrapper {
+    padding: var(--space-6) var(--space-8) var(--space-2);
+  }
+
+  .filters-scroll {
+    padding: var(--space-2) var(--space-8) var(--space-3);
+  }
+
+  /* ── Emprunts : 2 colonnes ──────────────────────────────── */
+
+  .loans-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-8) var(--space-8);
+  }
+
+  /* Le sous-titre de section (bandeau "en retard", etc.) reste pleine largeur */
+  .loans-list > [style*="padding: 0"] {
+    grid-column: 1 / -1;
+  }
+
+  /* ── Statistiques : 4 tuiles sur une ligne ──────────────── */
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    padding: var(--space-6) var(--space-8) var(--space-4);
+  }
+
+  .stat-tile-value {
+    font-size: var(--text-2xl);
+  }
+
+  /* ── Graphiques ─────────────────────────────────────────── */
+
+  .chart-section {
+    padding: var(--space-4) var(--space-8);
+  }
+
+  /* 2 graphiques côte à côte */
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-8) var(--space-8);
+  }
+
+  /* ── Section headers ────────────────────────────────────── */
+
+  .catalogue-section {
+    padding: var(--space-2) 0;
+  }
+
+  .section-header {
+    padding: 0 var(--space-8);
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+  }
+
+  /* ── Carte livre : hover sur desktop ────────────────────── */
+
+  .card-book:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-featured:hover .book-cover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .card-featured .book-cover {
+    transition: transform var(--duration-base) var(--ease-spring),
+                box-shadow var(--duration-base) var(--ease-default);
+  }
+
+  /* ── Emprunts : padding des sections d'en-tête ──────────── */
+
+  .loans-list ~ .loans-list,
+  .view-section {
+    padding: var(--space-5) var(--space-8) var(--space-3);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   GRAND ÉCRAN (≥ 1440px)
+══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1440px) {
+
+  /* 4 colonnes pour le catalogue */
+  .books-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card-featured { width: 200px; }
+  .card-featured .book-cover { width: 200px; height: 272px; }
+}

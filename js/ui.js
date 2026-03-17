@@ -202,45 +202,50 @@ function renderStats() {
         </div>
       </div>
 
-      <!-- Graphique : livres les plus empruntés -->
-      ${stats.topBooks.length > 0 ? `
-        <div class="chart-section">
-          <h3 class="chart-title">Livres les plus empruntés</h3>
-          <div class="chart-bar-list">
-            ${stats.topBooks.map(({ book, count }) => `
-              <div class="chart-bar-item">
-                <div class="chart-bar-label">
-                  <span>${escapeHtml(book.title)}</span>
-                  <span class="chart-bar-count">${count} emprunt${count > 1 ? 's' : ''}</span>
-                </div>
-                <div class="chart-bar-track">
-                  <div class="chart-bar-fill" style="width: ${(count / maxTopBooks) * 100}%"></div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      ` : ''}
+      <!-- Graphiques côte à côte sur desktop -->
+      <div class="charts-row">
 
-      <!-- Graphique : emprunts par genre -->
-      ${stats.topGenres.length > 0 ? `
-        <div class="chart-section">
-          <h3 class="chart-title">Emprunts par genre</h3>
-          <div class="chart-bar-list">
-            ${stats.topGenres.map(([genreName, count]) => `
-              <div class="chart-bar-item">
-                <div class="chart-bar-label">
-                  <span>${escapeHtml(genreName)}</span>
-                  <span class="chart-bar-count">${count}</span>
+        <!-- Livres les plus empruntés -->
+        ${stats.topBooks.length > 0 ? `
+          <div class="chart-section">
+            <h3 class="chart-title">Livres les plus empruntés</h3>
+            <div class="chart-bar-list">
+              ${stats.topBooks.map(({ book, count }) => `
+                <div class="chart-bar-item">
+                  <div class="chart-bar-label">
+                    <span>${escapeHtml(book.title)}</span>
+                    <span class="chart-bar-count">${count} emprunt${count > 1 ? 's' : ''}</span>
+                  </div>
+                  <div class="chart-bar-track">
+                    <div class="chart-bar-fill" style="width: ${(count / maxTopBooks) * 100}%"></div>
+                  </div>
                 </div>
-                <div class="chart-bar-track">
-                  <div class="chart-bar-fill" style="width: ${(count / maxGenre) * 100}%; background: linear-gradient(90deg, ${GENRE_GRADIENTS[genreName] ? GENRE_GRADIENTS[genreName][0] : '#40916C'}, ${GENRE_GRADIENTS[genreName] ? GENRE_GRADIENTS[genreName][1] : '#2D6A4F'})"></div>
-                </div>
-              </div>
-            `).join('')}
+              `).join('')}
+            </div>
           </div>
-        </div>
-      ` : ''}
+        ` : ''}
+
+        <!-- Emprunts par genre -->
+        ${stats.topGenres.length > 0 ? `
+          <div class="chart-section">
+            <h3 class="chart-title">Emprunts par genre</h3>
+            <div class="chart-bar-list">
+              ${stats.topGenres.map(([genreName, count]) => `
+                <div class="chart-bar-item">
+                  <div class="chart-bar-label">
+                    <span>${escapeHtml(genreName)}</span>
+                    <span class="chart-bar-count">${count}</span>
+                  </div>
+                  <div class="chart-bar-track">
+                    <div class="chart-bar-fill" style="width: ${(count / maxGenre) * 100}%; background: linear-gradient(90deg, ${GENRE_GRADIENTS[genreName] ? GENRE_GRADIENTS[genreName][0] : '#40916C'}, ${GENRE_GRADIENTS[genreName] ? GENRE_GRADIENTS[genreName][1] : '#2D6A4F'})"></div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+      </div>
 
       <div style="padding: var(--space-4) var(--side-padding); color: var(--color-text-faint); font-size: var(--text-xs); text-align: center;">
         Total historique : ${stats.totalLoans} emprunt${stats.totalLoans > 1 ? 's' : ''}
