@@ -1,0 +1,116 @@
+/*
+ * variables.css — Tokens de design (système de conception)
+ * ──────────────────────────────────────────────────────────
+ * Médiathèque de Cipières
+ *
+ * Toutes les valeurs de l'interface sont définies ici.
+ * Pour personnaliser le thème, modifier uniquement ce fichier.
+ */
+
+:root {
+
+  /* ── Palette de couleurs ─────────────────────────────────────────── */
+
+  /* Fonds */
+  --color-bg:            #F4EFE6;   /* Crème chaude — fond général        */
+  --color-bg-card:       #FFFFFF;   /* Blanc pur — cartes                 */
+  --color-bg-elevated:   #FDFAF5;   /* Blanc cassé — zones élevées        */
+  --color-bg-overlay:    rgba(12, 20, 15, 0.70); /* Fond modal            */
+
+  /* Texte */
+  --color-text:          #1C1410;   /* Brun très foncé — texte principal  */
+  --color-text-muted:    #7A6C5E;   /* Brun moyen — texte secondaire      */
+  --color-text-faint:    #B5A494;   /* Brun clair — texte inactif         */
+  --color-text-on-dark:  #FFFFFF;   /* Blanc — sur fonds sombres          */
+
+  /* Accent principal — Vert forêt */
+  --color-accent:        #2D6A4F;
+  --color-accent-mid:    #40916C;
+  --color-accent-light:  #74C69D;
+  --color-accent-pale:   #D8F3DC;
+
+  /* Accent secondaire — Ambre doré */
+  --color-amber:         #C8912A;
+  --color-amber-pale:    #FDF3DC;
+
+  /* États sémantiques */
+  --color-danger:        #C0392B;
+  --color-danger-pale:   #FDEDED;
+  --color-warning:       #D68910;
+  --color-warning-pale:  #FEF8E7;
+  --color-success:       #1E8449;
+  --color-success-pale:  #EAF7EF;
+
+  /* Bordures */
+  --color-border:        #E4D9CC;
+  --color-border-soft:   #EDE6DB;
+
+  /* ── Typographie ─────────────────────────────────────────────────── */
+
+  --font-display:  'Playfair Display', Georgia, serif;  /* Titres élégants  */
+  --font-body:     'DM Sans', system-ui, sans-serif;    /* Corps de texte   */
+
+  /* Échelle typographique */
+  --text-xs:    0.6875rem;   /*  11px */
+  --text-sm:    0.8125rem;   /*  13px */
+  --text-base:  0.9375rem;   /*  15px */
+  --text-md:    1.0625rem;   /*  17px */
+  --text-lg:    1.25rem;     /*  20px */
+  --text-xl:    1.5rem;      /*  24px */
+  --text-2xl:   1.875rem;    /*  30px */
+  --text-3xl:   2.25rem;     /*  36px */
+
+  /* Hauteurs de ligne */
+  --leading-tight:   1.25;
+  --leading-normal:  1.55;
+  --leading-loose:   1.75;
+
+  /* ── Espacements ─────────────────────────────────────────────────── */
+
+  --space-1:   0.25rem;   /*  4px  */
+  --space-2:   0.5rem;    /*  8px  */
+  --space-3:   0.75rem;   /*  12px */
+  --space-4:   1rem;      /*  16px */
+  --space-5:   1.25rem;   /*  20px */
+  --space-6:   1.5rem;    /*  24px */
+  --space-8:   2rem;      /*  32px */
+  --space-10:  2.5rem;    /*  40px */
+  --space-12:  3rem;      /*  48px */
+  --space-16:  4rem;      /*  64px */
+
+  /* ── Rayons de bordure ───────────────────────────────────────────── */
+
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    18px;
+  --radius-xl:    24px;
+  --radius-2xl:   32px;
+  --radius-full:  9999px;
+
+  /* ── Ombres ──────────────────────────────────────────────────────── */
+
+  --shadow-sm:   0 1px 4px rgba(0, 0, 0, 0.07);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.14);
+  --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.18);
+  --shadow-card: 0 2px 8px rgba(45, 106, 79, 0.08);
+
+  /* ── Transitions ─────────────────────────────────────────────────── */
+
+  --ease-default:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast:  150ms;
+  --duration-base:  250ms;
+  --duration-slow:  380ms;
+
+  /* ── Mise en page ─────────────────────────────────────────────────── */
+
+  --header-height:    60px;
+  --nav-height:       64px;
+  --nav-safe-bottom:  env(safe-area-inset-bottom, 0px);
+  --content-max-w:    480px;
+  --side-padding:     var(--space-4);
+
+}

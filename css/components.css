@@ -1,0 +1,1117 @@
+/*
+ * components.css — Composants de l'interface
+ * ─────────────────────────────────────────────
+ * Médiathèque de Cipières
+ *
+ * Table des matières :
+ *   1. Boutons & icônes
+ *   2. Badges & étiquettes
+ *   3. Barre de recherche
+ *   4. Filtres par genre (pills)
+ *   5. Couvertures de livres
+ *   6. Cartes — Livres en vedette
+ *   7. Cartes — Catalogue (grille)
+ *   8. Cartes — Emprunts
+ *   9. Statistiques
+ *  10. Modaux
+ *  11. Formulaires
+ *  12. Indicateur de chargement
+ */
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. BOUTONS & ICÔNES
+═══════════════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  transition:
+    background var(--duration-fast) var(--ease-default),
+    transform  var(--duration-fast) var(--ease-spring),
+    box-shadow var(--duration-fast) var(--ease-default);
+  letter-spacing: 0.02em;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-text-on-dark);
+  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.30);
+}
+.btn-primary:hover { background: var(--color-accent-mid); }
+
+.btn-secondary {
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+}
+.btn-secondary:hover { background: var(--color-accent-light); color: #fff; }
+
+.btn-danger {
+  background: var(--color-danger-pale);
+  color: var(--color-danger);
+}
+.btn-danger:hover { background: var(--color-danger); color: #fff; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+.btn-ghost:hover { background: var(--color-border-soft); }
+
+.btn-full { width: 100%; }
+
+/* ─ Bouton icône ───────────────────────────────────────── */
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition:
+    background var(--duration-fast) var(--ease-default),
+    color      var(--duration-fast) var(--ease-default);
+}
+
+.btn-icon:hover {
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+}
+
+.btn-icon.is-admin-active {
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. BADGES & ÉTIQUETTES
+═══════════════════════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-full);
+  letter-spacing: 0.03em;
+}
+
+.badge-available {
+  background: var(--color-success-pale);
+  color: var(--color-success);
+}
+
+.badge-borrowed {
+  background: var(--color-warning-pale);
+  color: var(--color-warning);
+}
+
+.badge-overdue {
+  background: var(--color-danger-pale);
+  color: var(--color-danger);
+  animation: pulseOverdue 2.5s ease-in-out infinite;
+}
+
+.badge-returned {
+  background: var(--color-border-soft);
+  color: var(--color-text-faint);
+}
+
+.badge-genre {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+@keyframes pulseOverdue {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. BARRE DE RECHERCHE
+═══════════════════════════════════════════════════════════════════════ */
+
+.search-wrapper {
+  padding: var(--space-4) var(--side-padding) var(--space-2);
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-faint);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) * 2 + 20px);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow   var(--duration-fast) var(--ease-default);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-pale);
+}
+
+/* ── Bouton clear ───────────────────────────────────────── */
+
+.search-clear {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  transition: background var(--duration-fast);
+}
+.search-clear:hover { background: var(--color-text-faint); color: #fff; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   4. FILTRES PAR GENRE (PILLS)
+═══════════════════════════════════════════════════════════════════════ */
+
+.filters-scroll {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--side-padding) var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.filters-scroll::-webkit-scrollbar { display: none; }
+
+.filter-pill {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition:
+    background    var(--duration-fast) var(--ease-default),
+    border-color  var(--duration-fast) var(--ease-default),
+    color         var(--duration-fast) var(--ease-default),
+    transform     var(--duration-fast) var(--ease-spring);
+  white-space: nowrap;
+}
+
+.filter-pill:active { transform: scale(0.95); }
+
+.filter-pill.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-on-dark);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. COUVERTURES DE LIVRES (CSS Gradients)
+═══════════════════════════════════════════════════════════════════════ */
+
+.book-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+/* Spine effect — tranche du livre */
+.book-cover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: rgba(0, 0, 0, 0.20);
+  z-index: 1;
+}
+
+/* Reflet de lumière */
+.book-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.20) 0%,
+    transparent 50%,
+    rgba(0,0,0,0.10) 100%
+  );
+  z-index: 2;
+}
+
+.book-cover-title {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.book-cover-author {
+  position: relative;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.80);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. CARTES — LIVRES EN VEDETTE (défilement horizontal)
+═══════════════════════════════════════════════════════════════════════ */
+
+.featured-section {
+  padding: 0 0 var(--space-4);
+}
+
+.featured-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--side-padding) var(--space-3);
+}
+
+.featured-label-text {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.featured-label-star {
+  color: var(--color-amber);
+  font-size: 1.1rem;
+}
+
+.featured-scroll {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--side-padding) var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+
+.featured-scroll::-webkit-scrollbar { display: none; }
+
+/* ─ Carte vedette ─────────────────────────────────────── */
+
+.card-featured {
+  flex-shrink: 0;
+  width: 160px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.card-featured:active { transform: scale(0.97); }
+
+.card-featured .book-cover {
+  width: 160px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-3);
+  box-shadow: var(--shadow-md);
+}
+
+.card-featured .book-cover-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-1);
+}
+
+.card-featured .book-cover-author {
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.card-featured-meta {
+  margin-top: var(--space-2);
+  padding: 0 var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   7. CARTES — CATALOGUE (grille 2 colonnes)
+═══════════════════════════════════════════════════════════════════════ */
+
+.catalogue-section {
+  padding: var(--space-2) var(--side-padding);
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ─ Carte catalogue ───────────────────────────────────── */
+
+.card-book {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform  var(--duration-base) var(--ease-spring),
+    box-shadow var(--duration-base) var(--ease-default);
+  border: 1px solid var(--color-border-soft);
+}
+
+.card-book:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-book .book-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-3);
+}
+
+.card-book .book-cover-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  margin-bottom: 2px;
+}
+
+.card-book .book-cover-author {
+  font-size: var(--text-xs);
+}
+
+.card-book-footer {
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-book-genre {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   8. CARTES — EMPRUNTS
+═══════════════════════════════════════════════════════════════════════ */
+
+.loans-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--side-padding);
+}
+
+/* ─ Carte emprunt ─────────────────────────────────────── */
+
+.card-loan {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-soft);
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.card-loan.is-overdue {
+  border-color: var(--color-danger);
+  border-left: 4px solid var(--color-danger);
+}
+
+/* ─ Miniature couverture ──────────────────────────────── */
+
+.loan-cover-mini {
+  flex-shrink: 0;
+  width: 52px;
+  height: 72px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.loan-cover-mini::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: rgba(0,0,0,0.18);
+  z-index: 1;
+}
+
+/* ─ Corps de la carte ─────────────────────────────────── */
+
+.loan-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.loan-book-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.loan-book-author {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.loan-borrower {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.borrower-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.borrower-name {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.loan-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.loan-date-item {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.loan-date-item strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.loan-date-item.overdue-text {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* ─ Actions admin dans la carte ───────────────────────── */
+
+.loan-actions {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   9. STATISTIQUES
+═══════════════════════════════════════════════════════════════════════ */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--side-padding);
+}
+
+/* ─ Tuile de stat ─────────────────────────────────────── */
+
+.stat-tile {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-soft);
+}
+
+.stat-tile-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.stat-tile-value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.stat-tile.accent .stat-tile-value { color: var(--color-accent); }
+.stat-tile.amber  .stat-tile-value { color: var(--color-amber);  }
+.stat-tile.danger .stat-tile-value { color: var(--color-danger); }
+
+/* ─ Graphique en barres (CSS pur) ─────────────────────── */
+
+.chart-section {
+  padding: var(--space-4) var(--side-padding);
+}
+
+.chart-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.chart-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.chart-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.chart-bar-count {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.chart-bar-track {
+  height: 8px;
+  background: var(--color-border-soft);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+  border-radius: var(--radius-full);
+  transform-origin: left;
+  animation: barGrow var(--duration-slow) var(--ease-out) forwards;
+  transform: scaleX(0);
+}
+
+@keyframes barGrow {
+  to { transform: scaleX(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   10. MODAUX (bottom sheet)
+═══════════════════════════════════════════════════════════════════════ */
+
+.modal-sheet {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  padding-bottom: calc(var(--space-8) + var(--nav-safe-bottom));
+  max-height: 90dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: sheetSlideUp var(--duration-slow) var(--ease-spring) forwards;
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); opacity: 0.6; }
+  to   { transform: translateY(0);   opacity: 1;   }
+}
+
+/* ─ Poignée ────────────────────────────────────────────── */
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  margin: var(--space-3) auto;
+}
+
+/* ─ En-tête du modal ──────────────────────────────────── */
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5) var(--space-3);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+  flex: 1;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-soft);
+  color: var(--color-text-muted);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: var(--space-3);
+  transition: background var(--duration-fast);
+}
+.modal-close:hover { background: var(--color-border); }
+
+/* ─ Corps du modal ────────────────────────────────────── */
+
+.modal-body {
+  padding: 0 var(--space-5) var(--space-6);
+}
+
+/* ─ Bloc couverture + infos (modal détail livre) ──────── */
+
+.modal-book-hero {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.modal-cover {
+  flex-shrink: 0;
+  width: 90px;
+  height: 128px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.modal-cover::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: rgba(0,0,0,0.20);
+  z-index: 1;
+}
+
+.modal-book-info {
+  flex: 1;
+  min-width: 0;
+  padding-top: var(--space-1);
+}
+
+.modal-book-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-1);
+}
+
+.modal-book-author {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.modal-book-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.meta-chip {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-border-soft);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.modal-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-5);
+}
+
+/* ─ Bloc statut emprunt dans le modal ─────────────────── */
+
+.modal-loan-status {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+  border: 1px solid var(--color-border-soft);
+}
+
+.loan-status-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-2);
+}
+
+.loan-status-detail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.loan-status-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.loan-status-info p {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.loan-status-info span {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ─ Panneau admin ─────────────────────────────────────── */
+
+.admin-section-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.admin-section-title:first-child { margin-top: 0; }
+
+/* ─ Formulaire de connexion admin ─────────────────────── */
+
+.login-section {
+  text-align: center;
+  padding: var(--space-4) 0 var(--space-2);
+}
+
+.login-lock-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-pale);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+}
+
+.login-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.login-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.login-error {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+  text-align: center;
+  padding: var(--space-2);
+  background: var(--color-danger-pale);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Onglets admin ──────────────────────────────────────── */
+
+.admin-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border-soft);
+  padding-bottom: 0;
+}
+
+.admin-tab {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  position: relative;
+  transition: color var(--duration-fast);
+}
+
+.admin-tab.active {
+  color: var(--color-accent);
+}
+
+.admin-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+/* ── Carte de retour de livre ──────────────────────────── */
+
+.return-loan-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-soft);
+  margin-bottom: var(--space-2);
+}
+
+.return-loan-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.return-loan-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.return-loan-borrower {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   11. FORMULAIRES
+═══════════════════════════════════════════════════════════════════════ */
+
+.form-group {
+  margin-bottom: var(--space-4);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+  -webkit-appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-faint);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-pale);
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A6C5E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: var(--space-10);
+  cursor: pointer;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  cursor: text;
+}
+
+.form-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Groupes de boutons ─────────────────────────────────── */
+
+.btn-group {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.btn-group .btn { flex: 1; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   12. INDICATEUR DE CHARGEMENT
+═══════════════════════════════════════════════════════════════════════ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-soft) 25%,
+    var(--color-border) 50%,
+    var(--color-border-soft) 75%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─ Toast de notification ─────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-height) + var(--nav-safe-bottom) + var(--space-4));
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: var(--color-text);
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  z-index: 300;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn var(--duration-base) var(--ease-spring) forwards;
+}
+
+.toast.toast-success {
+  background: var(--color-accent);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0);    }
+  to   { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+
+.toast.hiding {
+  animation: toastOut var(--duration-base) var(--ease-default) forwards;
+}
