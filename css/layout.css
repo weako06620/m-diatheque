@@ -278,8 +278,7 @@ body {
 
   body {
     background: #E0DAD0;
-    overflow: hidden;
-    height: 100vh;
+    /* Pas de overflow:hidden — ça bloque le scroll sur certains navigateurs */
   }
 
   /* Grille principale : [nav 240px] [header + main] */
@@ -304,6 +303,7 @@ body {
     position: sticky;
     top: 0;
     border-left: 1px solid var(--color-border-soft);
+    min-height: 0;
   }
 
   #app-main {
@@ -312,7 +312,8 @@ body {
     overflow-x: hidden;
     padding-bottom: var(--space-10);
     border-left: 1px solid var(--color-border-soft);
-    height: 100%;
+    /* min-height: 0 est OBLIGATOIRE pour qu'overflow fonctionne dans une grille CSS */
+    min-height: 0;
   }
 
   /* ── Sidebar ────────────────────────────────────────────── */

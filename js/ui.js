@@ -30,16 +30,20 @@
  * @returns {string} HTML (contenu interne du .book-cover)
  */
 function coverContent(book, size = 'M') {
-  const imgTag = book.isbn
-    ? `<img
+  // Sécurité : COVER_API peut être absent si l'ancien data.js est en cache
+  let imgTag = '';
+  if (book.isbn && typeof COVER_API !== 'undefined') {
+    try {
+      imgTag = `<img
          class="cover-img"
          src="${COVER_API.url(book.isbn, size)}"
          alt="Couverture de ${escapeHtml(book.title)}"
          loading="lazy"
          onerror="this.remove()"
          onload="this.classList.add('loaded')"
-       >`
-    : '';
+       >`;
+    } catch (e) { imgTag = ''; }
+  }
 
   return `
     ${imgTag}

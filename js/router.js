@@ -66,20 +66,27 @@ const Router = {
    * @private
    */
   _render(id, params) {
-    const main      = document.getElementById('app-main');
-    const renderFn  = this._views[id];
+    const main     = document.getElementById('app-main');
+    const renderFn = this._views[id];
 
-    // Rendu HTML
-    main.innerHTML = renderFn(params);
+    try {
+      main.innerHTML = renderFn(params);
+    } catch (err) {
+      // Affiche l'erreur directement dans l'interface pour faciliter le debug
+      console.error('[Router] Erreur de rendu :', err);
+      main.innerHTML = `
+        <div style="padding:2rem;font-family:monospace;color:#C0392B;background:#FDEDED;margin:1rem;border-radius:12px;border:1px solid #C0392B;">
+          <strong>⚠ Erreur de rendu — ${id}</strong><br><br>
+          ${err.message}<br><br>
+          <small>Ouvre la console (F12) pour plus de détails.</small>
+        </div>`;
+      return;
+    }
 
-    // Animation d'entrée
     const content = main.firstElementChild;
     if (content) content.classList.add('view-enter');
-
-    // Scroll en haut de la vue
     main.scrollTop = 0;
 
-    // Callback post-rendu (bind des événements DOM spécifiques à la vue)
     if (typeof window._onViewRendered === 'function') {
       window._onViewRendered(id, params);
     }
