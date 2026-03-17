@@ -167,6 +167,12 @@ function handleGlobalClick(e) {
       break;
     }
 
+    case 'open-edit-book': {
+      const bookId = parseInt(target.dataset.bookId, 10);
+      openEditBookModal(bookId);
+      break;
+    }
+
     case 'return-book': {
       const loanId = parseInt(target.dataset.loanId, 10);
       handleReturnBook(loanId);
@@ -253,8 +259,42 @@ function openAdminModal(tab = AppState.adminTab) {
   bindAdminModalEvents();
 }
 
-/** Ouvre le modal d'ajout de prêt pour un livre précis. */
-function openAddLoanModal(bookId) {
+/** Ouvre le modal d'édition cote/ISBN pour un livre. */
+function openEditBookModal(bookId) {
+  openModal(renderEditBookModal(bookId));
+  bindEditBookModalEvents();
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ÉVÉNEMENTS — MODAL ÉDITION LIVRE (cote + ISBN)
+═══════════════════════════════════════════════════════════════════════ */
+
+function bindEditBookModalEvents() {
+  const submitBtn = document.getElementById('btn-submit-edit-book');
+  if (!submitBtn) return;
+
+  // Formatage auto de l'ISBN (retire les tirets à la saisie)
+  const isbnInput = document.getElementById('edit-isbn');
+  if (isbnInput) {
+    isbnInput.addEventListener('input', () => {
+      isbnInput.value = isbnInput.value.replace(/[^0-9]/g, '').slice(0, 13);
+    });
+  }
+
+  submitBtn.addEventListener('click', () => {
+    const bookId = parseInt(submitBtn.dataset.bookId, 10);
+    const book   = DB.getBook(bookId);
+    if (!book) return;
+
+    const isbn = document.getElementById('edit-isbn').value.trim().replace(/[^0-9]/g, '');
+    const cote = document.getElementById('edit-cote').value.trim().toUpperCase();
+
+    DB.saveBook({ ...book, isbn, cote });
+    closeModal();
+    Router.refresh();
+    showToast('✓ Livre mis à jour', 'success');
+  });
+}
   openModal(renderAddLoanModal(bookId));
   bindAddLoanModalEvents();
 }
@@ -368,13 +408,23 @@ function bindAdminModalEvents() {
       const year        = parseInt(document.getElementById('nb-year').value, 10);
       const pages       = parseInt(document.getElementById('nb-pages').value, 10);
       const description = document.getElementById('nb-description').value.trim();
+      const isbn        = document.getElementById('nb-isbn').value.trim().replace(/[^0-9]/g, '');
+      const cote        = document.getElementById('nb-cote').value.trim().toUpperCase();
 
       if (!title || !author) {
         showToast('⚠ Le titre et l\'auteur sont obligatoires');
         return;
       }
 
-      DB.saveBook({ title, author, genre, year: year || new Date().getFullYear(), pages: pages || 0, description, featured: false });
+      DB.saveBook({
+        title, author, genre,
+        year:  year  || new Date().getFullYear(),
+        pages: pages || 0,
+        description,
+        isbn,
+        cote,
+        featured: false,
+      });
 
       closeModal();
       Router.navigate('catalogue');
